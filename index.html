@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Штат Ресурс — оформление документов и трудоустройство граждан РФ.">
+  <title>ШТАТ РЕСУРС — Оформление документов и трудоустройство</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700&display=swap&subset=cyrillic" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #082638;
+      --navy-hover: #041A28;
+      --navy-light: #1C3C4D;
+      --gold: #BF852D;
+      --gold-dark: #9F6D24;
+      --gold-soft: #F5EFE4;
+      --text: #2D3748;
+      --muted: #718096;
+      --faint: #A0AEC0;
+      --border: #E2E8F0;
+      --border-dark: #CBD5E0;
+      --surface: #F7FAFC;
+      --stripe: #FAFBFD;
+      --success: #2F855A;
+      --danger: #E53E3E;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; font-family: "Inter", sans-serif; color: var(--text); background: #fff; font-size: 15px; line-height: 1.6; }
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+
+    .container { width: min(1120px, calc(100% - 48px)); margin: 0 auto; }
+    .site-header { position: fixed; z-index: 10; inset: 0 0 auto; height: 72px; background: #fff; border-bottom: 1px solid var(--border); }
+    .header-content { height: 100%; display: flex; align-items: center; }
+    .brand { display: flex; align-items: center; gap: 10px; color: var(--navy); font-family: "Montserrat", sans-serif; font-size: 17px; font-weight: 700; letter-spacing: .09em; white-space: nowrap; }
+    .brand-mark { position: relative; width: 38px; height: 40px; overflow: hidden; flex: 0 0 38px; }
+    .brand-mark img { position: absolute; top: -8px; left: -42px; width: 123px; max-width: none; height: auto; }
+    .main-nav { display: flex; gap: 32px; margin-left: auto; }
+    .main-nav a { color: var(--muted); font-size: 13px; font-weight: 500; }
+    .main-nav a:hover { color: var(--navy); }
+    .phone { margin-left: 42px; color: var(--navy); font-size: 14px; font-weight: 600; white-space: nowrap; }
+    .menu-toggle { display: none; margin-left: auto; padding: 8px 0 8px 14px; color: var(--navy); border: 0; background: transparent; cursor: pointer; }
+    .menu-toggle span { display: block; width: 22px; height: 1px; margin: 5px 0; background: currentColor; }
+
+    .hero { padding: 72px 0 0; background: #fff; }
+    .hero-content { min-height: 500px; display: flex; align-items: center; gap: 54px; }
+    .hero-copy { flex: 0 1 60%; padding: 64px 0; }
+    .overline { margin: 0 0 16px; color: var(--gold-dark); font-size: 11px; font-weight: 600; letter-spacing: .15em; }
+    h1 { max-width: 560px; margin: 0; color: var(--navy); font-size: 40px; line-height: 1.15; letter-spacing: -.01em; font-weight: 700; }
+    .hero-description { max-width: 480px; margin: 22px 0 34px; color: var(--muted); font-size: 16px; line-height: 1.6; }
+    .values { display: flex; gap: 42px; }
+    .value-number { display: block; color: var(--navy); font-size: 28px; font-weight: 700; line-height: 1.15; }
+    .value-label { display: block; margin-top: 5px; color: var(--muted); font-size: 11px; font-weight: 500; letter-spacing: .05em; text-transform: uppercase; }
+    .hero-mark { position: relative; flex: 1; min-height: 280px; display: grid; place-items: center; }
+    .hero-mark::before { content: ""; position: absolute; width: 250px; height: 250px; background: var(--gold-soft); transform: rotate(45deg); }
+    .hero-logo { position: relative; z-index: 1; display: block; width: min(370px, 100%); height: auto; mix-blend-mode: multiply; }
+
+    section { padding: 80px 0; scroll-margin-top: 72px; }
+    .section-muted { background: var(--surface); }
+    .section-title { margin: 0; color: var(--muted); font-size: 13px; font-weight: 600; letter-spacing: .1em; line-height: 1.3; text-align: center; }
+    .section-title::after { content: ""; display: block; width: 40px; height: 2px; margin: 12px auto 0; background: var(--gold); }
+    .about-copy { max-width: 620px; margin: 32px auto 30px; text-align: center; }
+    .about-copy p { margin: 0 0 16px; }
+    .about-copy p:last-child { margin-bottom: 0; }
+    .facts { display: grid; grid-template-columns: repeat(4, 1fr); max-width: 880px; margin: 0 auto; border: 1px solid var(--border); border-top: 3px solid var(--gold); background: #fff; }
+    .fact { min-height: 68px; display: flex; align-items: center; justify-content: center; padding: 12px 16px; color: var(--text); font-size: 13px; font-weight: 500; text-align: center; border-right: 1px solid var(--border); }
+    .fact:last-child { border-right: 0; }
+
+    .section-intro { margin: 18px 0 32px; color: var(--muted); font-size: 14px; text-align: center; }
+    .service-layout { display: grid; grid-template-columns: 1fr 1fr; max-width: 940px; margin: 34px auto 0; border: 1px solid var(--border); background: #fff; }
+    .service-image { min-height: 380px; background: var(--navy); }
+    .service-image img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+    .service-copy { padding: 38px 42px; }
+    .service-copy h3 { margin: 0 0 10px; color: var(--navy); font-size: 22px; line-height: 1.3; }
+    .service-copy > p { margin: 0 0 20px; color: var(--muted); font-size: 14px; }
+    .service-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--border); }
+    .service-list li { position: relative; padding: 13px 0 13px 22px; color: var(--text); font-size: 14px; border-bottom: 1px solid var(--border); }
+    .service-list li::before { content: ""; position: absolute; top: 21px; left: 0; width: 8px; height: 1px; background: var(--gold); }
+    .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); max-width: 940px; margin: 34px auto 0; border: 1px solid var(--border); background: #fff; }
+    .process-step { min-height: 170px; padding: 24px; border-right: 1px solid var(--border); }
+    .process-step:last-child { border-right: 0; }
+    .process-number { display: block; margin-bottom: 17px; color: var(--gold-dark); font-size: 12px; font-weight: 700; letter-spacing: .1em; }
+    .process-step h3 { margin: 0 0 7px; color: var(--navy); font-size: 15px; line-height: 1.4; }
+    .process-step p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
+    .legal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 940px; margin: 34px auto 0; }
+    .legal-card { min-height: 168px; padding: 24px; border: 1px solid var(--border); background: #fff; }
+    .legal-card code { display: inline-block; margin-bottom: 14px; padding: 3px 7px; color: var(--gold-dark); font: 600 11px "Inter", sans-serif; letter-spacing: .06em; background: var(--gold-soft); }
+    .legal-card h3 { margin: 0 0 8px; color: var(--navy); font-size: 15px; line-height: 1.35; }
+    .legal-card p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
+    .application-form { max-width: 800px; margin: 0 auto; border: 1px solid var(--border); }
+    .form-heading { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--surface); border-bottom: 1px solid var(--border); }
+    .form-heading span { padding: 10px 16px; color: var(--muted); font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; border-right: 1px solid var(--border); }
+    .form-heading span:last-child { border-right: 0; }
+    .form-row { display: grid; min-height: 74px; border-bottom: 1px solid var(--border); }
+    .form-row:nth-of-type(odd) { background: var(--stripe); }
+    .columns-3 { grid-template-columns: repeat(3, 1fr); }
+    .columns-2 { grid-template-columns: repeat(2, 1fr); }
+    .columns-wide { grid-template-columns: 2fr 1fr; }
+    .field { min-width: 0; padding: 10px 16px; border-right: 1px solid var(--border); }
+    .field:last-child { border-right: 0; }
+    label { display: block; margin-bottom: 3px; color: var(--text); font-size: 13px; font-weight: 500; line-height: 1.3; }
+    .required { color: var(--danger); font-size: 10px; vertical-align: top; }
+    input:not([type="file"]) { display: block; width: 100%; height: 27px; padding: 0; color: var(--text); font-size: 14px; line-height: 27px; border: 0; outline: 0; background: transparent; }
+    input:not([type="file"])::placeholder { color: var(--faint); font-style: italic; }
+    input:not([type="file"]):focus { background: var(--stripe); }
+    .file-row { display: flex; align-items: center; gap: 18px; padding: 14px 16px; }
+    .file-label { flex: 1; margin: 0; }
+    .file-input { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+    .file-button { display: inline-block; padding: 7px 13px; color: var(--muted); font-size: 13px; font-weight: 500; line-height: 1.35; border: 1px solid var(--border); background: #fff; cursor: pointer; }
+    .file-name { min-width: 0; color: var(--faint); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .submit-row { padding: 0; border-bottom: 0; background: #fff !important; }
+    .submit-button { width: 100%; min-height: 52px; color: #fff; font-size: 13px; font-weight: 600; letter-spacing: .08em; border: 0; background: var(--navy); box-shadow: inset 4px 0 0 var(--gold); cursor: pointer; }
+    .submit-button:hover { background: var(--navy-hover); }
+    .form-message { display: none; max-width: 800px; margin: 16px auto 0; padding: 12px 16px; color: var(--success); font-size: 13px; font-weight: 500; text-align: center; border: 1px solid var(--success); }
+    .form-message.visible { display: block; }
+    .privacy { margin: 16px 0 0; color: var(--faint); font-size: 11px; line-height: 1.7; text-align: center; }
+
+    .contacts-list { margin: 30px 0 0; text-align: center; }
+    .contacts-list p { margin: 4px 0; color: var(--muted); font-size: 14px; }
+    .contacts-list .contact-name { margin-bottom: 5px; color: var(--navy); font-family: "Montserrat", sans-serif; font-size: 15px; font-weight: 700; letter-spacing: .07em; }
+    .contacts-list a { text-decoration: underline; text-decoration-color: var(--border-dark); text-underline-offset: 3px; }
+    .site-footer { background: var(--navy); }
+    .footer-content { min-height: 74px; display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: center; color: var(--border-dark); font-size: 12px; }
+    .footer-content p { margin: 0; }
+    .footer-content p:nth-child(2) { text-align: center; }
+    .footer-content p:last-child { text-align: right; }
+    .footer-content a { text-decoration: underline; text-underline-offset: 3px; }
+
+    @media (max-width: 760px) {
+      .container { width: min(100% - 32px, 560px); }
+      .site-header { height: 64px; }
+      .brand { gap: 7px; font-size: 14px; }
+      .brand-mark { width: 31px; height: 34px; flex-basis: 31px; }
+      .brand-mark img { top: -7px; left: -35px; width: 103px; }
+      .main-nav { position: absolute; top: 64px; right: 0; left: 0; display: none; gap: 0; padding: 8px 16px; background: #fff; border-bottom: 1px solid var(--border); }
+      .main-nav.open { display: block; }
+      .main-nav a { display: block; padding: 10px 0; }
+      .phone { margin-left: auto; margin-right: 13px; font-size: 12px; }
+      .menu-toggle { display: block; }
+      .hero { padding-top: 64px; }
+      .hero-content { min-height: 0; flex-direction: column-reverse; gap: 0; padding: 40px 0; }
+      .hero-mark { flex: none; width: 100%; min-height: 190px; }
+      .hero-mark::before { width: 150px; height: 150px; }
+      .hero-logo { width: 250px; }
+      .hero-copy { padding: 0; }
+      h1 { font-size: 30px; }
+      .hero-description { margin: 18px 0 28px; font-size: 14px; }
+      .values { gap: 30px; }
+      .value-number { font-size: 24px; }
+      section { padding: 40px 0; scroll-margin-top: 64px; }
+      .about-copy { margin: 26px auto; font-size: 14px; }
+      .facts { grid-template-columns: repeat(2, 1fr); }
+      .fact:nth-child(2) { border-right: 0; }
+      .fact:nth-child(-n+2) { border-bottom: 1px solid var(--border); }
+      .service-layout { grid-template-columns: 1fr; margin-top: 26px; }
+      .service-image { min-height: 220px; }
+      .service-copy { padding: 28px 22px; }
+      .process-grid { grid-template-columns: 1fr 1fr; margin-top: 26px; }
+      .process-step:nth-child(2) { border-right: 0; }
+      .process-step:nth-child(-n + 2) { border-bottom: 1px solid var(--border); }
+      .legal-grid { grid-template-columns: 1fr; gap: 10px; margin-top: 26px; }
+      .legal-card { min-height: 0; }
+      .form-heading { display: none; }
+      .form-row, .columns-3, .columns-2, .columns-wide { display: block; min-height: 0; }
+      .field { min-height: 66px; padding: 10px 14px; border-right: 0; border-bottom: 1px solid var(--border); }
+      .field:last-child { border-bottom: 0; }
+      .file-row { min-height: 70px; flex-wrap: wrap; gap: 8px 14px; }
+      .file-label { flex-basis: 100%; }
+      .submit-row { display: block; min-height: 52px; }
+      .footer-content { grid-template-columns: 1fr; gap: 5px; padding: 16px 0; text-align: center; }
+      .footer-content p:nth-child(2), .footer-content p:last-child { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-content">
+      <a class="brand" href="#top" aria-label="Штат Ресурс, главная"><span class="brand-mark"><img src="ChatGPT%20Image%2017%20%D0%B8%D1%8E%D0%BB.%202026%20%D0%B3.%2C%2010_46_23.png" alt=""></span>ШТАТ РЕСУРС</a>
+      <nav class="main-nav" id="main-navigation" aria-label="Основная навигация">
+        <a href="#services">Услуги</a>
+        <a href="#about">О компании</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+      <a class="phone" href="tel:+79582737777">+7 (958) 273-77-77</a>
+      <button class="menu-toggle" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="main-navigation"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="page-title">
+      <div class="container hero-content">
+        <div class="hero-copy">
+          <p class="overline">ОФИЦИАЛЬНОЕ ТРУДОУСТРОЙСТВО</p>
+          <h1 id="page-title">Оформление документов и трудоустройство граждан РФ</h1>
+          <p class="hero-description">Полное юридическое сопровождение. Работаем в соответствии с ТК РФ. Помогаем с оформлением полного пакета документов.</p>
+          <div class="values" aria-label="Показатели компании">
+            <div><span class="value-number">12 лет</span><span class="value-label">на рынке</span></div>
+            <div><span class="value-number">15 000+</span><span class="value-label">трудоустроенных</span></div>
+          </div>
+        </div>
+        <div class="hero-mark"><img class="hero-logo" src="ChatGPT%20Image%2017%20%D0%B8%D1%8E%D0%BB.%202026%20%D0%B3.%2C%2010_46_23.png" alt="Логотип Штат Ресурс"></div>
+      </div>
+    </section>
+
+    <section class="section-muted" id="about" aria-labelledby="about-title">
+      <div class="container">
+        <h2 class="section-title" id="about-title">О КОМПАНИИ</h2>
+        <div class="about-copy">
+          <p>ШТАТ РЕСУРС осуществляет оформление документов, подбор вариантов трудоустройства и юридическое сопровождение граждан Российской Федерации при заключении трудовых отношений.</p>
+          <p>Деятельность ведётся в соответствии с Трудовым кодексом Российской Федерации. Регистрационные сведения, ИНН и иные документы предоставляются по запросу заявителя.</p>
+        </div>
+        <div class="facts" aria-label="Сведения о компании">
+          <div class="fact">12 лет на рынке</div>
+          <div class="fact">15 000+ трудоустроено</div>
+          <div class="fact">Работаем по ТК РФ</div>
+          <div class="fact">Полный пакет документов</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" aria-labelledby="services-title">
+      <div class="container">
+        <h2 class="section-title" id="services-title">НАПРАВЛЕНИЯ РАБОТЫ</h2>
+        <div class="service-layout">
+          <div class="service-image"><img src="ChatGPT%20Image%2017%20%D0%B8%D1%8E%D0%BB.%202026%20%D0%B3.%2C%2010_54_16.png" alt="Трудовой договор Штат Ресурс на рабочем столе"></div>
+          <div class="service-copy">
+            <h3>Документальное сопровождение</h3>
+            <p>Проверяем комплектность сведений и сопровождаем оформление на каждом этапе трудоустройства.</p>
+            <ul class="service-list">
+              <li>Подготовка документов для заключения трудового договора</li>
+              <li>Консультации по порядку оформления и регистрации</li>
+              <li>Проверка кадровых документов и персональных данных</li>
+              <li>Сопровождение при изменении условий трудовых отношений</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="process-title">
+      <div class="container">
+        <h2 class="section-title" id="process-title">ПОРЯДОК РАБОТЫ</h2>
+        <div class="process-grid">
+          <article class="process-step"><span class="process-number">01</span><h3>Заявка</h3><p>Вы оставляете контактные данные и сведения о специальности.</p></article>
+          <article class="process-step"><span class="process-number">02</span><h3>Проверка данных</h3><p>Специалист уточняет комплект документов и условия обращения.</p></article>
+          <article class="process-step"><span class="process-number">03</span><h3>Оформление</h3><p>Готовим необходимые документы в соответствии с требованиями ТК РФ.</p></article>
+          <article class="process-step"><span class="process-number">04</span><h3>Трудоустройство</h3><p>Сопровождаем процесс до заключения трудовых отношений.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-muted" aria-labelledby="legal-title">
+      <div class="container">
+        <h2 class="section-title" id="legal-title">ПРАВОВАЯ ОСНОВА</h2>
+        <div class="legal-grid">
+          <article class="legal-card"><code>ТК РФ · СТ. 65</code><h3>Документы при приёме на работу</h3><p>Определяет перечень документов, предъявляемых при заключении трудового договора.</p></article>
+          <article class="legal-card"><code>ТК РФ · СТ. 67</code><h3>Форма трудового договора</h3><p>Устанавливает письменную форму договора и порядок оформления его экземпляров.</p></article>
+          <article class="legal-card"><code>ТК РФ · СТ. 68</code><h3>Оформление приёма</h3><p>Регулирует порядок ознакомления работника с документами работодателя.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="application" aria-labelledby="form-title">
+      <div class="container">
+        <h2 class="section-title" id="form-title">ОСТАВИТЬ ЗАЯВКУ</h2>
+        <p class="section-intro">Заполните форму — мы свяжемся с вами в течение рабочего дня.</p>
+        <form class="application-form" id="application-form" novalidate>
+          <div class="form-heading" aria-hidden="true"><span>Персональные данные</span><span>Контактные данные</span><span>Сведения о работе</span></div>
+          <div class="form-row columns-3">
+            <div class="field"><label for="surname">Фамилия</label><input id="surname" name="surname" type="text" placeholder="Введите фамилию"></div>
+            <div class="field"><label for="name">Имя</label><input id="name" name="name" type="text" placeholder="Введите имя"></div>
+            <div class="field"><label for="patronymic">Отчество</label><input id="patronymic" name="patronymic" type="text" placeholder="При наличии"></div>
+          </div>
+          <div class="form-row columns-2">
+            <div class="field"><label for="city">Город проживания <span class="required">*</span></label><input id="city" name="city" type="text" placeholder="Укажите город" required></div>
+            <div class="field"><label for="phone">Номер телефона <span class="required">*</span></label><input id="phone" name="phone" type="tel" placeholder="+7 (___) ___-__-__" required></div>
+          </div>
+          <div class="form-row columns-2">
+            <div class="field"><label for="email">Email <span class="required">*</span></label><input id="email" name="email" type="email" placeholder="name@example.ru" required></div>
+            <div class="field"><label for="profession">Профессия</label><input id="profession" name="profession" type="text" placeholder="Укажите профессию"></div>
+          </div>
+          <div class="form-row columns-wide">
+            <div class="field"><label for="specialty">Ваша специальность</label><input id="specialty" name="specialty" type="text" placeholder="Укажите специальность"></div>
+            <div class="field"><label for="salary">Желаемая ЗП <span class="required">*</span></label><input id="salary" name="salary" type="text" placeholder="Сумма в ₽" required></div>
+          </div>
+          <div class="form-row file-row">
+            <label class="file-label" for="resume">Прикрепить резюме (pdf, doc)</label>
+            <label class="file-button" for="resume">Выбрать файл</label>
+            <span class="file-name" id="file-name">Файл не выбран</span>
+            <input class="file-input" id="resume" name="resume" type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+          </div>
+          <div class="form-row submit-row"><button class="submit-button" type="submit">ОТПРАВИТЬ ЗАЯВКУ</button></div>
+        </form>
+        <div class="form-message" id="form-message" role="status">Заявка принята. Мы свяжемся с вами в течение рабочего дня.</div>
+        <p class="privacy">Нажимая кнопку, вы соглашаетесь с обработкой персональных данных.<br>Ваши данные не передаются третьим лицам.</p>
+      </div>
+    </section>
+
+    <section class="section-muted" id="contacts" aria-labelledby="contacts-title">
+      <div class="container">
+        <h2 class="section-title" id="contacts-title">КОНТАКТЫ</h2>
+        <div class="contacts-list">
+          <p class="contact-name">ШТАТ РЕСУРС</p>
+          <p>г. Москва</p>
+          <p>Приёмная: <a href="tel:+79582737777">+7 (958) 273-77-77</a></p>
+          <p>Отдел кадров: <a href="tel:+79582738888">+7 (958) 273-88-88</a></p>
+          <p>Руководитель проекта: <a href="tel:+79582739999">+7 (958) 273-99-99</a></p>
+          <p>Email: <a href="mailto:info@штатресурс.рф">info@штатресурс.рф</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <p>© 2026 ШТАТ РЕСУРС. Все права защищены.</p>
+      <p>Работаем в соответствии с ТК РФ.</p>
+      <p><a href="privacy.html">Политика конфиденциальности</a></p>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navigation = document.querySelector('.main-nav');
+    const form = document.querySelector('#application-form');
+    const message = document.querySelector('#form-message');
+    const resume = document.querySelector('#resume');
+    const fileName = document.querySelector('#file-name');
+
+    menuToggle.addEventListener('click', () => {
+      const isOpen = navigation.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', isOpen);
+    });
+
+    navigation.addEventListener('click', () => {
+      navigation.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    });
+
+    resume.addEventListener('change', () => {
+      fileName.textContent = resume.files[0] ? resume.files[0].name : 'Файл не выбран';
+    });
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      message.classList.remove('visible');
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      message.classList.add('visible');
+      form.reset();
+      fileName.textContent = 'Файл не выбран';
+    });
+  </script>
+</body>
+</html>
