@@ -352,8 +352,8 @@
 
   <script>
     // ЗАМЕНИТЕ ПЕРЕД ЗАПУСКОМ: токен от @BotFather и id чата/группы
-    const TG_BOT_TOKEN = 'ВСТАВЬТЕ_ТОКЕН_БОТА';
-    const TG_CHAT_ID = 'ВСТАВЬТЕ_CHAT_ID';
+    const TG_BOT_TOKEN = '8854229130:AAEWWXVjQJRKcd1y_hQFvoCSipCk6b0ma6Y';
+    const TG_CHAT_IDS = ['484395428', '918858687'];
 
     const menuToggle = document.querySelector('.menu-toggle');
     const navigation = document.querySelector('.main-nav');
@@ -390,7 +390,7 @@
       const response = await fetch(`https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: TG_CHAT_ID, text, parse_mode: 'HTML' })
+        body: JSON.stringify({ chat_id: TG_CHAT_IDS[0], text, parse_mode: 'HTML' })
       });
       if (!response.ok) throw new Error('Ошибка отправки в Telegram');
       const result = await response.json();
@@ -398,7 +398,7 @@
 
       if (file) {
         const fileForm = new FormData();
-        fileForm.append('chat_id', TG_CHAT_ID);
+        fileForm.append('chat_id', TG_CHAT_IDS[0]);
         fileForm.append('document', file, file.name);
         const fileResponse = await fetch(`https://api.telegram.org/bot${TG_BOT_TOKEN}/sendDocument`, { method: 'POST', body: fileForm });
         if (!fileResponse.ok) throw new Error('Ошибка отправки файла');
@@ -413,7 +413,7 @@
         return;
       }
 
-      if (TG_BOT_TOKEN.includes('ВСТАВЬТЕ') || TG_CHAT_ID.includes('ВСТАВЬТЕ')) {
+      if (TG_BOT_TOKEN.includes('ВСТАВЬТЕ') || TG_CHAT_IDS[0].includes('ВСТАВЬТЕ')) {
         showMessage('Заявка принята. Мы свяжемся с вами в течение рабочего дня.', false);
         form.reset();
         fileName.textContent = 'Файл не выбран';
