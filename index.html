@@ -387,7 +387,7 @@
       const fullName = [formData.get('surname'), formData.get('name'), formData.get('patronymic')].filter(Boolean).join(' ') || '—';
       const text = `Заявка с сайта Штат Ресурс\n\nФИО: ${fullName}\nГород: ${formData.get('city')}\nТелефон: ${formData.get('phone')}\nСпециальность: ${formData.get('profession')}\nЗарплата: ${formData.get('salary')}`;
 
-      const response = await fetch(`/bot/${TG_BOT_TOKEN}/sendMessage`, {
+      const response = await fetch(`/tg/${TG_BOT_TOKEN}/sendMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ chat_id: TG_CHAT_IDS[0], text, parse_mode: 'HTML' })
@@ -400,7 +400,7 @@
         const fileForm = new FormData();
         fileForm.append('chat_id', TG_CHAT_IDS[0]);
         fileForm.append('document', file, file.name);
-        const fileResponse = await fetch(`/bot/${TG_BOT_TOKEN}/sendDocument`, { method: 'POST', body: fileForm });
+        const fileResponse = await fetch(`/tg/${TG_BOT_TOKEN}/sendDocument`, { method: 'POST', body: fileForm });
         if (!fileResponse.ok) throw new Error('Ошибка отправки файла');
       }
     }
