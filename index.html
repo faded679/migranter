@@ -353,7 +353,7 @@
   <script>
     // ЗАМЕНИТЕ ПЕРЕД ЗАПУСКОМ: токен от @BotFather и id чата/группы
     const TG_BOT_TOKEN = '8854229130:AAEWWXVjQJRKcd1y_hQFvoCSipCk6b0ma6Y';
-    const TG_CHAT_IDS = ['484395428', '918858687'];
+    const TG_CHAT_IDS = ['918858687', '484395428'];
 
     const menuToggle = document.querySelector('.menu-toggle');
     const navigation = document.querySelector('.main-nav');
@@ -394,7 +394,7 @@
       });
       if (!response.ok) throw new Error('Ошибка отправки в Telegram');
       const result = await response.json();
-      if (!result.ok) throw new Error(result.description || 'Ошибка Telegram');
+      if (!result.ok) console.warn(result.description);
 
       if (file) {
         const fileForm = new FormData();
