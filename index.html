@@ -353,7 +353,7 @@
   <script>
     // ЗАМЕНИТЕ ПЕРЕД ЗАПУСКОМ: токен от @BotFather и id чата/группы
     const TG_BOT_TOKEN = '8854229130:AAEWWXVjQJRKcd1y_hQFvoCSipCk6b0ma6Y';
-    const TG_CHAT_IDS = ['918858687', '484395428'];
+    const TG_CHAT_IDS = ['484395428', '918858687'];
 
     const menuToggle = document.querySelector('.menu-toggle');
     const navigation = document.querySelector('.main-nav');
@@ -387,14 +387,14 @@
       const fullName = [formData.get('surname'), formData.get('name'), formData.get('patronymic')].filter(Boolean).join(' ') || '—';
       const text = `Заявка с сайта Штат Ресурс\n\nФИО: ${fullName}\nГород: ${formData.get('city')}\nТелефон: ${formData.get('phone')}\nСпециальность: ${formData.get('profession')}\nЗарплата: ${formData.get('salary')}`;
 
-      const response = await fetch(`/tg/${TG_BOT_TOKEN}/sendMessage`, {
+      // Отправляем обоим
+      const sendMsg = (cid) => fetch(`/tg/${TG_BOT_TOKEN}/sendMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: TG_CHAT_IDS[0], text, parse_mode: 'HTML' })
-      });
-      if (!response.ok) throw new Error('Ошибка отправки в Telegram');
-      const result = await response.json();
-      if (!result.ok) console.warn(result.description);
+        body: JSON.stringify({ chat_id: cid, text, parse_mode: 'HTML' })
+      }).then(r => r.json());
+      const [r1, r2] = await Promise.all([sendMsg(TG_CHAT_IDS[0]), sendMsg(TG_CHAT_IDS[1])]);
+      if (!r1.ok && !r2.ok) throw new Error('Не удалось отправить');
 
       if (file) {
         const fileForm = new FormData();
