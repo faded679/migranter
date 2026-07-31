@@ -315,6 +315,10 @@
             <div class="field"><label for="profession">Специальность <span class="required">*</span></label><input id="profession" name="profession" type="text" placeholder="Разнорабочий, сварщик..." required></div>
             <div class="field"><label for="salary">Желаемая ЗП <span class="required">*</span></label><input id="salary" name="salary" type="text" placeholder="Сумма в ₽" required></div>
           </div>
+          <div class="form-row columns-2">
+            <div class="field"><label for="age">Возраст <span class="required">*</span></label><input id="age" name="age" type="number" min="16" max="80" placeholder="Укажите возраст" required></div>
+            <div class="field"><label for="experience">Опыт работы <span class="required">*</span></label><input id="experience" name="experience" type="text" placeholder="Например, 3 года" required></div>
+          </div>
           <div class="form-row file-row">
             <label class="file-label" for="resume">Прикрепить резюме (pdf, doc)</label>
             <label class="file-button" for="resume">Выбрать файл</label>
@@ -385,7 +389,7 @@
 
     async function sendToTelegram(formData, file) {
       const fullName = [formData.get('surname'), formData.get('name'), formData.get('patronymic')].filter(Boolean).join(' ') || '—';
-      const text = `Заявка с сайта Штат Ресурс\n\nФИО: ${fullName}\nГород: ${formData.get('city')}\nТелефон: ${formData.get('phone')}\nСпециальность: ${formData.get('profession')}\nЗарплата: ${formData.get('salary')}`;
+      const text = `Заявка с сайта Штат Ресурс\n\nФИО: ${fullName}\nВозраст: ${formData.get('age')}\nГород: ${formData.get('city')}\nТелефон: ${formData.get('phone')}\nСпециальность: ${formData.get('profession')}\nОпыт работы: ${formData.get('experience')}\nЗарплата: ${formData.get('salary')}`;
 
       // Отправляем обоим
       const sendMsg = (cid) => fetch(`/tg/${TG_BOT_TOKEN}/sendMessage`, {
